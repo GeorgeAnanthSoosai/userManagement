@@ -20,7 +20,7 @@
           <td>{{user.age}}</td>
           <td>{{user.weight}}</td>
           <td>
-            <a>View</a>
+            <a class="cursor-pointer link-align">View</a>
           </td>
         </tr>
       </tbody>
@@ -106,7 +106,14 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.dismiss('Close click')">Close</button>
-    <button type="button" class="btn btn-primary" [disabled]="!createUser.valid" (click)="modal.close(createUser)">Create</button>
+    <button type="button"
+            class="btn btn-light"
+            (click)="modal.dismiss('Close click')">Close
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            [disabled]="!createUser.valid"
+            (click)="modal.close(createUser)">Create
+    </button>
   </div>
 </ng-template>
