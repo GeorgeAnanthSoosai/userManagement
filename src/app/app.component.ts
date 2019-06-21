@@ -11,7 +11,4 @@ export class AppComponent {
 
   constructor(private modalService: NgbModal) {};
 
-  openLg(content) {
-    this.modalService.open(content, { size: 'lg' });
-  }
 }
