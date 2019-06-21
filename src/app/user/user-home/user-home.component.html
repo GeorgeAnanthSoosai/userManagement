@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of userData; let i = index">
+        <tr *ngFor="let user of (userProfileList | async); let i = index">
           <th scope="row">{{user.name}}</th>
           <td>{{user.friends}}</td>
           <td>{{user.age}}</td>
@@ -75,7 +75,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-light" (click)="modal.dismiss('Close click')">Close</button>
     <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Create</button>
   </div>
 </ng-template>
