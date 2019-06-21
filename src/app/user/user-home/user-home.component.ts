@@ -12,12 +12,17 @@ import { library } from '@fortawesome/fontawesome-svg-core';
   styleUrls: ['./user-home.component.scss']
 })
 export class UserHomeComponent implements OnInit {
+  userData = [{
+    name : 'George',
+    friends : ['Pavan', 'Mary', 'Sam', 'Rinkesh'],
+    age : 31,
+    weight: 140
+  }];
 
-  
-  constructor(private modalService: NgbModal) { 
+  constructor(private modalService: NgbModal) {
     library.add(fas, faCoffee, faPlusCircle);
    }
-  
+
   ngOnInit() {
   }
 
@@ -25,12 +30,12 @@ export class UserHomeComponent implements OnInit {
     this.modalService.open(content, { size: 'lg', backdropClass: 'light-blue-backdrop' })
     .result.then(
       (data) => {
-        console.log(data) 
+        console.log(data);
       },
       (dismiss) => {
-        console.log("Test", dismiss)
+        console.log('Test', dismiss);
       }
-    )
+    );
   }
 
 }
