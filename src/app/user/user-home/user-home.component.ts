@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import {fas, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+
 
 @Component({
   selector: 'app-user-home',
@@ -7,9 +12,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./user-home.component.scss']
 })
 export class UserHomeComponent implements OnInit {
-  
-  constructor(private modalService: NgbModal) { }
 
+  
+  constructor(private modalService: NgbModal) { 
+    library.add(fas, faCoffee, faPlusCircle);
+   }
+  
   ngOnInit() {
   }
 
