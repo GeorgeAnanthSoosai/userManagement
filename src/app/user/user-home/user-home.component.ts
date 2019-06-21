@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import {fas, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
@@ -6,13 +6,14 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { UserProfileService } from '../service/user-profile.service';
 import { UserProfile } from '../model/user-profile';
 import { Observable } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-home',
   templateUrl: './user-home.component.html',
   styleUrls: ['./user-home.component.scss']
 })
-export class UserHomeComponent implements OnInit {
+export class UserHomeComponent implements OnInit, AfterViewInit {
   userProfileList: Observable<UserProfile[]>;
 
   constructor(private modalService: NgbModal, private userProfileServoice: UserProfileService) {
@@ -23,12 +24,18 @@ export class UserHomeComponent implements OnInit {
     this.userProfileList = this.userProfileServoice.getUsers();
   }
 
+  ngAfterViewInit() {
+    
+  }
+
   createUser(content) {
     this.modalService.open(content, { size: 'lg', backdropClass: 'light-blue-backdrop' })
     .result.then(
-      (data) => {
-        console.log(data)
-        this.userProfileServoice.addNewUser(new UserProfile('George', ['Pavan', 'Mary', 'Sam', 'Rinkesh'], 31, 140));
+      (userInput: NgForm) => {
+        this.userProfileServoice.addNewUser(new UserProfile(userInput.form.value.userName,
+                                            [userInput.form.value.friends],
+                                            userInput.form.value.age,
+                                            userInput.form.value.weight));
       },
       (dismiss) => {
         console.log('Test', dismiss);
