@@ -11,11 +11,11 @@ const routes: Routes = [
   },
   {
     path: 'user-home', component: UserHomeComponent
-  }, {
+  }, 
+  {
     path: 'user-details/:id',
     component: UserDetailsComponent
   }
-  
 ];
 
 @NgModule({

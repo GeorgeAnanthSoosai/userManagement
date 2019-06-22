@@ -11,6 +11,7 @@ import { UserBootstrapModule } from './core-module/user-bootstrap/user-bootstrap
 import { AssignmentHomeComponent } from './home/assignment-home/assignment-home.component';
 import { UserHomeComponent } from './user/user-home/user-home.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
+import { UserProfileChartComponent } from './user/user-profile-chart/user-profile-chart.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
     AppComponent,
     AssignmentHomeComponent,
     UserHomeComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    UserProfileChartComponent
   ],
   imports: [
     BrowserModule,
