@@ -27,7 +27,7 @@
           <tbody>
             <tr *ngFor="let user of (userProfileList | async); let userIdex = index">
               <th scope="row">{{user.name}}</th>
-              <td>{{user.friends}}</td>
+              <td>{{user.friends | friendsFilter}}</td>
               <td>{{user.age}}</td>
               <td>{{user.weight}}</td>
               <td>

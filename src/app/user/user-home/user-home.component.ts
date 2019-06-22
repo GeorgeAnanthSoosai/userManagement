@@ -64,7 +64,7 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   }
 
   navigateToUserDetails(index: number) {
-    this.router.navigate(['user-details', index]);
+    this.router.navigate(['user-home', index]);
   }
   
 }

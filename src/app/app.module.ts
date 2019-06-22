@@ -13,6 +13,8 @@ import { UserHomeComponent } from './user/user-home/user-home.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserProfileChartComponent } from './user/user-profile-chart/user-profile-chart.component';
 import { FaqComponent } from './user/faq/faq.component';
+import { AgeClasificationPipe } from './user/pipes/age-clasification.pipe';
+import { FriendsFilterPipe } from './user/pipes/friends-filter.pipe';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { FaqComponent } from './user/faq/faq.component';
     UserHomeComponent,
     UserDetailsComponent,
     UserProfileChartComponent,
-    FaqComponent
+    FaqComponent,
+    AgeClasificationPipe,
+    FriendsFilterPipe
   ],
   imports: [
     BrowserModule,

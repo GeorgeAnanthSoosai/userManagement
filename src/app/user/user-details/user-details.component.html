@@ -2,19 +2,27 @@
   <h5 class="card-header text-center">{{userDetails.name}}</h5>
   <div class="card-body">
     <div class="row">
-      <div class="col-sm-6 text-center">
+      <div class="col-sm-4 text-center">
           <img class="user-image-align" src="assets/user_icon.png">
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-8">
         <table class="table table-bordered">
           <tbody>
             <tr>
               <td>Friends</td>
-              <td>{{userDetails.friends}}</td>
+              <td>{{userDetails.friends | friendsFilter}}</td>
+            </tr>
+            <tr>
+                <td>Total Number Of Friends</td>
+                <td>{{userDetails.friends.length}}</td>
             </tr>
             <tr>
               <td>Age</td>
               <td>{{userDetails.age}}</td>
+            </tr>
+            <tr>
+                <td>Classification</td>
+                <td>{{userDetails.age | ageClasification}}</td>
             </tr>
             <tr>
                 <td>Weight</td>
