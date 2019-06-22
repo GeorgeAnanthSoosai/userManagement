@@ -30,6 +30,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   navigateToUserHomeScreen() {
+    this.userProfileService.resetData();
     this.router.navigate(["user-home"])
   }
 

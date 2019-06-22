@@ -24,6 +24,7 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
    }
 
   ngOnInit() {
+    this.userProfileServoice.resetData();
     this.userProfileList = this.userProfileServoice.getUsers();
   }
 
@@ -52,7 +53,8 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
     this.modalService.open(content, { size: 'lg', backdropClass: 'light-blue-backdrop' })
     .result.then(
       (userInput: NgForm) => {
-        this.userProfileServoice.addNewUser(new UserProfile(userInput.form.value.userName,
+        this.userProfileServoice.addNewUser(new UserProfile(this.userProfileServoice.generateNewId(),
+                                            userInput.form.value.userName,
                                             this.getFriends(userInput.form.value),
                                             userInput.form.value.age,
                                             userInput.form.value.weight));
@@ -67,8 +69,8 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
     //console.log(searchKey)
     this.userProfileServoice.searchUsers(searchKey.toLowerCase());
   }
-  navigateToUserDetails(index: number) {
-    this.router.navigate(['user-home', index]);
+  navigateToUserDetails(userId: number) {
+    this.router.navigate(['user-home', userId]);
   }
   
 }

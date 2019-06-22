@@ -7,11 +7,11 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs';
 })
 export class UserProfileService {
   private userProfileList: UserProfile[] = [
-    new UserProfile('George', ['Pavan', 'Mary', 'Sam', 'Rinkesh'], 30, 140),
-    new UserProfile('Pavan', ['Mary', 'Kiran'], 40, 80),
-    new UserProfile('Devi', ['Greesh', 'Shiva'], 25, 60),
-    new UserProfile('Greesh', ['Devi', 'Greesh'], 35, 70),
-    new UserProfile('John', ['Alex', 'Sam'], 50, 50),
+    new UserProfile(1, 'George', ['Pavan', 'Mary', 'Sam', 'Rinkesh'], 30, 140),
+    new UserProfile(2, 'Pavan', ['Mary', 'Kiran'], 40, 80),
+    new UserProfile(3, 'Devi', ['Greesh', 'Shiva'], 25, 60),
+    new UserProfile(4, 'Greesh', ['Devi', 'Greesh'], 35, 70),
+    new UserProfile(5, 'John', ['Alex', 'Sam'], 50, 50),
   ];
 
   userProfileSubject = new BehaviorSubject<UserProfile[]>(this.userProfileList);
@@ -26,7 +26,20 @@ export class UserProfileService {
     return this.userProfileSubject.asObservable();
   }
   getUserById(id: number): UserProfile {
-    return this.userProfileList[id];
+    for(let i = 0; i < this.userProfileList.length; i++) {
+      if(this.userProfileList[i].userId == id) {
+        return this.userProfileList[i];
+      }
+    }
+    return;
+  }
+
+  resetData() {
+    this.userProfileSubject.next(this.userProfileList);
+  }
+
+  generateNewId(): number {
+    return this.userProfileList.length+1;
   }
 
   searchUsers(searchKey: string) {
