@@ -10,13 +10,15 @@ import { UserMaterialModule } from './core-module/user-material/user-material.mo
 import { UserBootstrapModule } from './core-module/user-bootstrap/user-bootstrap.module';
 import { AssignmentHomeComponent } from './home/assignment-home/assignment-home.component';
 import { UserHomeComponent } from './user/user-home/user-home.component';
+import { UserDetailsComponent } from './user/user-details/user-details.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AssignmentHomeComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,

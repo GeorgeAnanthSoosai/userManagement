@@ -22,4 +22,7 @@ export class UserProfileService {
   getUsers(): Observable<UserProfile[]>  {
     return this.userProfileSubject.asObservable();
   }
+  getUserById(id: number): UserProfile {
+    return this.userProfileList[id];
+  }
 }
