@@ -1,0 +1,5 @@
+---
+applications:
+- name: dell-assignment-george-soosai
+  buildpack: staticfile_buildpack
+  instances: 1

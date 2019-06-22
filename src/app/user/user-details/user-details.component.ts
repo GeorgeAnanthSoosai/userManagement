@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data } from '@angular/router';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {fas, faBackward} from '@fortawesome/free-solid-svg-icons';
+
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { UserProfile } from '../model/user-profile';
 import { UserProfileService } from '../service/user-profile.service';
+
 
 @Component({
   selector: 'app-user-details',
@@ -12,7 +16,9 @@ export class UserDetailsComponent implements OnInit {
   userId: number;
   userDetails: UserProfile;
 
-  constructor(private activatedRoute: ActivatedRoute, private userProfileService: UserProfileService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private userProfileService: UserProfileService) {
+    library.add(fas, faBackward);
+   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
@@ -21,6 +27,10 @@ export class UserDetailsComponent implements OnInit {
         this.userDetails = this.userProfileService.getUserById(this.userId);
       }
     )
+  }
+
+  navigateToUserHomeScreen() {
+    this.router.navigate(["user-home"])
   }
 
 }

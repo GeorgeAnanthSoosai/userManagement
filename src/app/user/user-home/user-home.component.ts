@@ -4,7 +4,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import {fas, faPlusCircle, faMinusCircle} from '@fortawesome/free-solid-svg-icons';
+import {fas, faPlusCircle, faMinusCircle, faBackward} from '@fortawesome/free-solid-svg-icons';
 
 import { UserProfileService } from '../service/user-profile.service';
 import { UserProfile } from '../model/user-profile';
@@ -20,7 +20,7 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   userProfileList: Observable<UserProfile[]>;
   friendsList: number[] = [];
   constructor(private modalService: NgbModal, private userProfileServoice: UserProfileService, private router: Router, private activatedRoute: ActivatedRoute) {
-    library.add(fas, faCoffee, faPlusCircle, faMinusCircle);
+    library.add(fas, faCoffee, faPlusCircle, faMinusCircle, faBackward);
    }
 
   ngOnInit() {

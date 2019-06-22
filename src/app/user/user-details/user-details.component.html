@@ -1,5 +1,12 @@
+
+<div style="margin: 5px 0px">
+  <button type="button" class="btn btn-warning" (click)="navigateToUserHomeScreen()">
+      <fa-icon [icon]="['fas', 'backward']"
+      [styles]="{'color': 'red', 'cursor' : 'pointer'}"></fa-icon>
+      Back</button>
+</div>
 <div class="card">
-  <h5 class="card-header text-center">{{userDetails.name}}</h5>
+  <h5 class="card-header text-center bg-dark text-white">{{userDetails.name}}</h5>
   <div class="card-body">
     <div class="row">
       <div class="col-sm-4 text-center">
