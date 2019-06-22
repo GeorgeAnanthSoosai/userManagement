@@ -63,6 +63,10 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
     );
   }
 
+  findUserDetails(searchKey: string) {
+    //console.log(searchKey)
+    this.userProfileServoice.searchUsers(searchKey.toLowerCase());
+  }
   navigateToUserDetails(index: number) {
     this.router.navigate(['user-home', index]);
   }

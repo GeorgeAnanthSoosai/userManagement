@@ -28,4 +28,27 @@ export class UserProfileService {
   getUserById(id: number): UserProfile {
     return this.userProfileList[id];
   }
+
+  searchUsers(searchKey: string) {
+    let copyUserProfileList: UserProfile[] = [...this.userProfileList];
+    let results: UserProfile[] = copyUserProfileList.filter((item: UserProfile) => {
+      if(item.name.toLowerCase().indexOf(searchKey) > -1) {
+        return true;
+      } else if(item.age.toString().indexOf(searchKey) > -1) {
+        return true;
+      } else if(item.weight.toString().indexOf(searchKey) > -1) {
+        return true;
+      } else {
+        for(let i = 0; i < item.friends.length; i++) {
+          if(item.friends[i].toLowerCase().indexOf(searchKey) > -1) {
+            return true;
+          }
+        }
+        return false;
+      }
+      return false;
+    })
+    this.userProfileSubject.next(results);
+  }
+
 }

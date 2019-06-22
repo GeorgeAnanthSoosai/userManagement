@@ -8,10 +8,24 @@
           Create User</button>
     </div>
   </div>
+  <div>
+      <div>
+          <mat-form-field class="w-100">
+              <input
+                    matInput
+                    autofocus
+                    type="search"
+                    placeholder="Search..."
+                    (keyup)="findUserDetails(searchUser)"
+                    [(ngModel)]="searchUser">
+            </mat-form-field>
+      </div>
+  </div>
   <div class="row">
     <div class="col-sm-12">
       <div class="bg-dark w-100 text-white user-details">
-          <h4>User Details</h4>
+          <h4>User Details
+          </h4>
       </div>
       <table class="table table-hover table-bordered">
           <thead class="thead-light">
@@ -40,7 +54,7 @@
   <div class="row">
     <div class="col-sm-12">
         <div class="col-sm-12 bg-dark w-100 text-white user-details">
-            <h4>Basic D3 Chart Name vs Age</h4>
+            <h4>Basic D3 Chart: Name vs Age</h4>
         </div>
         <div class="col-sm-12" style="margin-bottom: 20px;">
             <app-user-profile-chart></app-user-profile-chart>
