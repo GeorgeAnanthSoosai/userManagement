@@ -12,6 +12,7 @@ import { AssignmentHomeComponent } from './home/assignment-home/assignment-home.
 import { UserHomeComponent } from './user/user-home/user-home.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserProfileChartComponent } from './user/user-profile-chart/user-profile-chart.component';
+import { FaqComponent } from './user/faq/faq.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { UserProfileChartComponent } from './user/user-profile-chart/user-profil
     AssignmentHomeComponent,
     UserHomeComponent,
     UserDetailsComponent,
-    UserProfileChartComponent
+    UserProfileChartComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,

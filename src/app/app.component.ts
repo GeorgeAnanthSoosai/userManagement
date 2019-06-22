@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent {
   title = 'User Management';
+  showFiller = true;
 
   constructor(private modalService: NgbModal) {};
 

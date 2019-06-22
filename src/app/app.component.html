@@ -1,14 +1,35 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div class="bg-info text-center text-white">
-  <h3>
-    Welcome to {{ title }}!
-  </h3>
-</div>
-
-<div class="continer-fluid container-align">
-    <router-outlet></router-outlet>
-</div>
-
-<div class="footer fixed-bottom text-center bg-secondary text-white">
-  George Assignment @ 2019
-</div>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+      <div class="nav">
+        <div id="list-example" class="list-group">
+            <a class="list-group-item list-group-item-action left-menu-button-align" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}"
+                routerLink="/">Home</a>
+            <a class="list-group-item list-group-item-action left-menu-button-align" 
+                routerLinkActive="active"
+                routerLink="/user-home">User Management</a>
+            <a class="list-group-item list-group-item-action left-menu-button-align" 
+                routerLinkActive="active"
+                routerLink="/faq">FAQ's</a>
+        </div>
+      </div>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      <!--The content below is only a placeholder and can be replaced.-->
+      <div class="bg-info text-center text-white">
+          <h3>
+            Welcome to {{ title }}!
+          </h3>
+        </div>
+        <div class="continer-fluid container-align" height="100vh">
+            <router-outlet></router-outlet>
+        </div>
+        
+        <div class="footer fixed-bottom text-center bg-secondary text-white">
+          George Assignment @ 2019
+        </div>
+    </div>
+  
+  </mat-drawer-container>
