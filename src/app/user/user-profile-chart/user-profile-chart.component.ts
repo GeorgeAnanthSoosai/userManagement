@@ -52,6 +52,7 @@ export class UserProfileChartComponent implements OnInit {
   chartData = [];
   generateData(userData: UserProfile[]) {
     this.data = [];
+    this.chartData = [];
     for (let i = 0; i < userData.length; i++) {
     this.chartData.push([
     `${userData[i].name}`,
