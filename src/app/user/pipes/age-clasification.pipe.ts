@@ -1,5 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Pipe used for Age clasification 
+ * It's help to identify user category by it's age limit
+ */
 @Pipe({
   name: 'ageClasification'
 })

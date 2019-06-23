@@ -10,7 +10,11 @@ import { UserProfileService } from '../service/user-profile.service';
 import { UserProfile } from '../model/user-profile';
 import { Observable } from 'rxjs';
 
-
+/**
+ * User Home Components
+ * Allow to create new user profile and view the data in grid
+ * Also it give the visualization using D3
+ */
 @Component({
   selector: 'app-user-home',
   templateUrl: './user-home.component.html',
@@ -18,11 +22,24 @@ import { Observable } from 'rxjs';
 })
 export class UserHomeComponent implements OnInit, AfterViewInit {
   userProfileList: Observable<UserProfile[]>;
+  searchUser: string;
   friendsList: number[] = [];
+
+  /**
+   * 
+   * @param modalService 
+   * @param userProfileServoice 
+   * @param router 
+   * @param activatedRoute 
+   * Initialize services and setup font awesome icons in library
+   */
   constructor(private modalService: NgbModal, private userProfileServoice: UserProfileService, private router: Router, private activatedRoute: ActivatedRoute) {
     library.add(fas, faCoffee, faPlusCircle, faMinusCircle, faBackward);
-   }
+  }
 
+  /**
+   * Initialize user data
+   */
   ngOnInit() {
     this.userProfileServoice.resetData();
     this.userProfileList = this.userProfileServoice.getUsers();
@@ -30,13 +47,24 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
 
+  /**
+  * add new friends for dynamic view
+  */
   addNewFriends() {
     this.friendsList.push(this.friendsList.length + 1);
   }
+
+  /**
+  * remove friends from dynamic view
+  */
   removeFriends(index: number) {
     this.friendsList.splice(index, 1);
   }
 
+  /**
+   * @param formValue 
+   * Get friends in array from dynamically generated form fields
+   */
   getFriends(formValue): string[] {
     const keysList = Object.keys(formValue);
     const results: string[] = [];
@@ -48,6 +76,11 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
     return results;
   }
 
+  /**
+   * @param content 
+   * Open user creation form in a modal window
+   * Allow to create new user after filling all required field in the form and click create button 
+   */
   createUser(content) {
     this.friendsList = [1];
     this.modalService.open(content, { size: 'lg', backdropClass: 'light-blue-backdrop' })
@@ -60,15 +93,25 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
                                             userInput.form.value.weight));
       },
       (dismiss) => {
-        console.log('Test', dismiss);
+        //perform cancel action
       }
     );
   }
 
+  /**
+   * 
+   * @param searchKey 
+   * Search user details on every key type 
+   */
   findUserDetails(searchKey: string) {
-    //console.log(searchKey)
     this.userProfileServoice.searchUsers(searchKey.toLowerCase());
   }
+
+  /**
+   * 
+   * @param userId 
+   * navigate to user details screen by it's id
+   */
   navigateToUserDetails(userId: number) {
     this.router.navigate(['user-home', userId]);
   }

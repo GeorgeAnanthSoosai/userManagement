@@ -16,7 +16,9 @@ import { FaqComponent } from './user/faq/faq.component';
 import { AgeClasificationPipe } from './user/pipes/age-clasification.pipe';
 import { FriendsFilterPipe } from './user/pipes/friends-filter.pipe';
 
-
+/**
+ * Application module 
+ */
 @NgModule({
   declarations: [
     AppComponent,

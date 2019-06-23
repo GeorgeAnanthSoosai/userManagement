@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Format friends list name just by adding comma and space next to it
+ */
 @Pipe({
   name: 'friendsFilter'
 })

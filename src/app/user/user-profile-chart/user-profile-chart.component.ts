@@ -3,6 +3,9 @@ import * as d3 from 'd3';
 import { UserProfileService } from '../service/user-profile.service';
 import { UserProfile } from '../model/user-profile';
 
+/**
+ * D3 Chart for user profile 
+ */
 @Component({
   selector: 'app-user-profile-chart',
   templateUrl: './user-profile-chart.component.html',

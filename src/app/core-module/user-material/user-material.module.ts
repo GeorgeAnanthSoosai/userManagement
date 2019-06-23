@@ -6,8 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
-
-
+/**
+ * Angular Material Module setup 
+ */
 @NgModule({
   declarations: [],
   imports: [

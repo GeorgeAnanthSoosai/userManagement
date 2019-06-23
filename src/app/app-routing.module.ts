@@ -6,6 +6,9 @@ import { UserHomeComponent } from './user/user-home/user-home.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { FaqComponent } from './user/faq/faq.component';
 
+/**
+ * Router configuration 
+ */
 const routes: Routes = [
   {
     path: '', component: AssignmentHomeComponent

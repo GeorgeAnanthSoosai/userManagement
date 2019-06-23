@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./assignment-home.component.scss']
 })
 export class AssignmentHomeComponent implements OnInit {
-
+  
   constructor(private route: Router, private activevatedRoute : ActivatedRoute) { }
 
   ngOnInit() {
