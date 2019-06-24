@@ -105,6 +105,12 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /**
+   * 
+   * @param message 
+   * @param type 
+   * Enhanced to use dynamic alert component to display the error meessage based on the scenarios 
+   */
   private showAlertMessage(message: string, type: string) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
     const viewContainer = this.alertHost.viewContainerRef;

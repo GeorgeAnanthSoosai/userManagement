@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+/**
+ * Alert Component created to display the dynamic message
+ */
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
