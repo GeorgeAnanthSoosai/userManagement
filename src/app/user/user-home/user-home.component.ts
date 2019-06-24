@@ -1,7 +1,7 @@
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import {fas, faPlusCircle, faMinusCircle, faBackward} from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,8 @@ import {fas, faPlusCircle, faMinusCircle, faBackward} from '@fortawesome/free-so
 import { UserProfileService } from '../service/user-profile.service';
 import { UserProfile } from '../model/user-profile';
 import { Observable } from 'rxjs';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { AppPlaceholderDirective } from 'src/app/shared/helper/helper.directive';
 
 /**
  * User Home Components
@@ -24,6 +26,7 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   userProfileList: Observable<UserProfile[]>;
   searchUser: string;
   friendsList: number[] = [];
+  @ViewChild(AppPlaceholderDirective, {static: false}) alertHost: AppPlaceholderDirective;
 
   /**
    * 
@@ -33,7 +36,9 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
    * @param activatedRoute 
    * Initialize services and setup font awesome icons in library
    */
-  constructor(private modalService: NgbModal, private userProfileServoice: UserProfileService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private modalService: NgbModal, private userProfileServoice: UserProfileService, 
+              private router: Router, private activatedRoute: ActivatedRoute,
+              private componentFactoryResolver: ComponentFactoryResolver) {
     library.add(fas, faCoffee, faPlusCircle, faMinusCircle, faBackward);
   }
 
@@ -91,13 +96,23 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
                                             this.getFriends(userInput.form.value),
                                             userInput.form.value.age,
                                             userInput.form.value.weight));
+        this.showAlertMessage("User Created Successfully!", "success")
       },
       (dismiss) => {
         //perform cancel action
+        this.showAlertMessage("User creation has canceled!", "info")
       }
     );
   }
 
+  private showAlertMessage(message: string, type: string) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+    const viewContainer = this.alertHost.viewContainerRef;
+    viewContainer.clear();
+    const componentRef = viewContainer.createComponent(componentFactory);
+    componentRef.instance.message = message;
+    componentRef.instance.alertType = type;
+  }
   /**
    * 
    * @param searchKey 

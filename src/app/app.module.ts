@@ -15,6 +15,8 @@ import { UserProfileChartComponent } from './user/user-profile-chart/user-profil
 import { FaqComponent } from './user/faq/faq.component';
 import { AgeClasificationPipe } from './user/pipes/age-clasification.pipe';
 import { FriendsFilterPipe } from './user/pipes/friends-filter.pipe';
+import { AlertComponent } from './shared/alert/alert.component';
+import { AppPlaceholderDirective } from './shared/helper/helper.directive';
 
 /**
  * Application module 
@@ -28,7 +30,9 @@ import { FriendsFilterPipe } from './user/pipes/friends-filter.pipe';
     UserProfileChartComponent,
     FaqComponent,
     AgeClasificationPipe,
-    FriendsFilterPipe
+    FriendsFilterPipe,
+    AlertComponent,
+    AppPlaceholderDirective
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,9 @@ import { FriendsFilterPipe } from './user/pipes/friends-filter.pipe';
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertComponent
+  ]
 })
 export class AppModule { }
