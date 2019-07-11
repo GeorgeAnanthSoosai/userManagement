@@ -1,23 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, OnChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { UserProfileService } from '../service/user-profile.service';
 import { UserProfile } from '../model/user-profile';
 
 /**
- * D3 Chart for user profile 
+ * D3 Chart for user profile
  */
 @Component({
   selector: 'app-user-profile-chart',
   templateUrl: './user-profile-chart.component.html',
   styleUrls: ['./user-profile-chart.component.scss']
 })
-export class UserProfileChartComponent implements OnInit {
+export class UserProfileChartComponent implements OnInit, OnChanges {
 
-  @ViewChild('chart', {static: true}) 
+  @ViewChild('chart', {static: true})
   private chartContainer: ElementRef;
 
   private data: Array<any>;
-  private margin: any = { top: 20, bottom: 40, left: 20, right: 20};
+  private margin: any = { top: 20, bottom: 80, left: 50, right: 20};
   private chart: any;
   private width: number;
   private height: number;
@@ -28,19 +28,21 @@ export class UserProfileChartComponent implements OnInit {
   private yAxis: any;
   private isCreated: boolean;
   constructor(private userProfileService: UserProfileService) { }
-
+  private isFirstTime: boolean;
   ngOnInit() {
     this.userProfileService.getUsers().subscribe(
       (userData : UserProfile[]) => {
-        this.generateData(userData)
-        this.data = this.chartData;
-        this.createChart();
-        if (this.data) {
+        if(!this.isFirstTime) {
+          this.generateData(userData)
+          this.data = this.chartData;
+          this.createChart();
+          this.updateChart();
+        } else {
           this.updateChart();
         }
       }
     )
-    
+
   }
 
   ngOnChanges() {
@@ -81,12 +83,28 @@ export class UserProfileChartComponent implements OnInit {
     let yDomain = [0, d3.max(this.data, d => d[1])];
 
     // create scales
-    this.xScale = d3.scaleBand().padding(0.1).domain(xDomain).rangeRound([0, this.width]);
+    this.xScale = d3.scaleBand().padding(0.1).domain(xDomain).rangeRound([0, this.width]).paddingInner(0.5);
     this.yScale = d3.scaleLinear().domain(yDomain).range([this.height, 0]);
 
     // bar colors
     this.colors = d3.scaleLinear().domain([0, this.data.length]).range(<any[]>['red', 'blue']);
 
+    this.chart.append('text')
+        .attr('class', 'axis-x axis-label')
+        .attr('x', this.width / 2)
+        .attr('y', this.height + 40)
+        .attr('font-size', '20px')
+        .attr('text-anchor', 'middle')
+        .text('Name');
+
+    this.chart.append('text')
+        .attr('class', 'axis-y axis-label')
+        .attr('x', - (this.height / 2))
+        .attr('y', -30)
+        .attr('font-size', '20px')
+        .attr('text-anchor', 'middle')
+        .attr('transform', 'rotate(-90)')
+        .text('Age');
     // x & y axis
     this.xAxis = svg.append('g')
       .attr('class', 'axis axis-x')
@@ -103,8 +121,9 @@ export class UserProfileChartComponent implements OnInit {
     this.xScale.domain(this.data.map(d => d[0]));
     this.yScale.domain([0, d3.max(this.data, d => d[1])]);
     this.colors.domain([0, this.data.length]);
-    this.xAxis.transition().call(d3.axisBottom(this.xScale));
-    this.yAxis.transition().call(d3.axisLeft(this.yScale));
+    const timeDelay = d3.transition().duration(750);
+    this.xAxis.transition(timeDelay).call(d3.axisBottom(this.xScale));
+    this.yAxis.transition(timeDelay).call(d3.axisLeft(this.yScale));
 
     let update = this.chart.selectAll('.bar')
       .data(this.data);
