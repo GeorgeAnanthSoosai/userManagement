@@ -27,7 +27,7 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   searchUser: string;
   friendsList: number[] = [];
   @ViewChild(AppPlaceholderDirective, {static: false}) alertHost: AppPlaceholderDirective;
-
+  @ViewChild('createUser', {static: true}) userForm: NgForm;
   /**
    * 
    * @param modalService 
@@ -96,11 +96,12 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
                                             this.getFriends(userInput.form.value),
                                             userInput.form.value.age,
                                             userInput.form.value.weight));
-        this.showAlertMessage("User Created Successfully!", "success")
+        this.showAlertMessage("User Created Successfully!", "success");
       },
       (dismiss) => {
         //perform cancel action
         this.showAlertMessage("User creation has canceled!", "info")
+        
       }
     );
   }
@@ -125,6 +126,7 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
    * Search user details on every key type 
    */
   findUserDetails(searchKey: string) {
+    searchKey = searchKey ? searchKey : "";
     this.userProfileServoice.searchUsers(searchKey.toLowerCase());
   }
 
