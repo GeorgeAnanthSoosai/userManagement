@@ -4,7 +4,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { Component, OnInit, AfterViewInit, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import {fas, faPlusCircle, faMinusCircle, faBackward} from '@fortawesome/free-solid-svg-icons';
+import {fas, faPlusCircle, faMinusCircle, faBackward, faCaretSquareRight,
+  faCaretSquareLeft,
+  faChevronCircleRight, faChevronCircleDown} from '@fortawesome/free-solid-svg-icons';
 
 import { UserProfileService } from '../service/user-profile.service';
 import { UserProfile } from '../model/user-profile';
@@ -12,6 +14,10 @@ import { Observable } from 'rxjs';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { AppPlaceholderDirective } from 'src/app/shared/helper/helper.directive';
 
+
+interface ITooggleIndex {
+  [i: number]: boolean;
+}
 /**
  * User Home Components
  * Allow to create new user profile and view the data in grid
@@ -23,23 +29,29 @@ import { AppPlaceholderDirective } from 'src/app/shared/helper/helper.directive'
   styleUrls: ['./user-home.component.scss']
 })
 export class UserHomeComponent implements OnInit, AfterViewInit {
-  userProfileList: Observable<UserProfile[]>;
+  userProfileList: UserProfile[];
   searchUser: string;
   friendsList: number[] = [];
+  toggleArray: ITooggleIndex[];
+  isExpanded: boolean;
+
   @ViewChild(AppPlaceholderDirective, {static: false}) alertHost: AppPlaceholderDirective;
   @ViewChild('createUser', {static: true}) userForm: NgForm;
   /**
-   * 
-   * @param modalService 
-   * @param userProfileServoice 
-   * @param router 
-   * @param activatedRoute 
+   *
+   * @param modalService
+   * @param userProfileServoice
+   * @param router
+   * @param activatedRoute
    * Initialize services and setup font awesome icons in library
    */
-  constructor(private modalService: NgbModal, private userProfileServoice: UserProfileService, 
+  constructor(private modalService: NgbModal, private userProfileServoice: UserProfileService,
               private router: Router, private activatedRoute: ActivatedRoute,
               private componentFactoryResolver: ComponentFactoryResolver) {
-    library.add(fas, faCoffee, faPlusCircle, faMinusCircle, faBackward);
+                this.isExpanded =false;
+                this.toggleArray = [];
+    library.add(fas, faCoffee, faPlusCircle, faMinusCircle, faBackward, faCaretSquareRight, faCaretSquareLeft, faChevronCircleDown,
+      faChevronCircleRight);
   }
 
   /**
@@ -47,7 +59,11 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
    */
   ngOnInit() {
     this.userProfileServoice.resetData();
-    this.userProfileList = this.userProfileServoice.getUsers();
+    this.userProfileServoice.getUsers().subscribe(
+      (userProfile: UserProfile[]) => {
+        this.userProfileList =  userProfile;
+      }
+    );
   }
 
   ngAfterViewInit() {}
@@ -67,7 +83,7 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * @param formValue 
+   * @param formValue
    * Get friends in array from dynamically generated form fields
    */
   getFriends(formValue): string[] {
@@ -82,9 +98,9 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * @param content 
+   * @param content
    * Open user creation form in a modal window
-   * Allow to create new user after filling all required field in the form and click create button 
+   * Allow to create new user after filling all required field in the form and click create button
    */
   createUser(content) {
     this.friendsList = [1];
@@ -107,10 +123,10 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * 
-   * @param message 
-   * @param type 
-   * Enhanced to use dynamic alert component to display the error meessage based on the scenarios 
+   *
+   * @param message
+   * @param type
+   * Enhanced to use dynamic alert component to display the error meessage based on the scenarios
    */
   private showAlertMessage(message: string, type: string) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
@@ -121,9 +137,9 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
     componentRef.instance.alertType = type;
   }
   /**
-   * 
-   * @param searchKey 
-   * Search user details on every key type 
+   *
+   * @param searchKey
+   * Search user details on every key type
    */
   findUserDetails(searchKey: string) {
     searchKey = searchKey ? searchKey : "";
@@ -131,12 +147,18 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * 
-   * @param userId 
+   *
+   * @param userId
    * navigate to user details screen by it's id
    */
   navigateToUserDetails(userId: number) {
     this.router.navigate(['user-home', userId]);
   }
-  
+
+  private toggleData(toggle) {
+    this.isExpanded = !this.isExpanded;
+    for(let i = 0; i < this.userProfileList.length; i++) {
+      this.toggleArray[i] = toggle;
+    }
+  }
 }

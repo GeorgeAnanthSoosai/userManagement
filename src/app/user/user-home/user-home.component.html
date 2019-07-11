@@ -31,6 +31,10 @@
       <table class="table table-hover table-bordered">
           <thead class="thead-light">
             <tr>
+              <th>
+                  <button class="btn btn-warning"  [hidden]="isExpanded==true" (click)="toggleData(true)"><fa-icon [icon]="['fas', 'chevron-circle-right']" size="md"></fa-icon></button>
+                  <button class="btn btn-warning" [hidden]="isExpanded==false" (click)="toggleData(false)"><fa-icon [icon]="['fas', 'chevron-circle-down']" size="md"></fa-icon></button>
+              </th>
               <th scope="col">Name</th>
               <th scope="col">Friends</th>
               <th scope="col">Age</th>
@@ -39,7 +43,64 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of (userProfileList | async); let userIdex = index">
+            <ng-template ngFor let-user let-userIdex="index" [ngForOf]="userProfileList">
+                <tr>
+                    <td style="width: 80px;">
+                      <button class="btn btn-warning" [hidden]="toggleArray[userIdex]" (click)="toggleArray[userIdex]  = !toggleArray[userIdex]"><fa-icon [icon]="['fas', 'chevron-circle-right']" size="md"></fa-icon></button>
+                      <button class="btn btn-warning" [hidden]="!toggleArray[userIdex]" (click)="toggleArray[userIdex]  = !toggleArray[userIdex]"><fa-icon [icon]="['fas', 'chevron-circle-down']" size="md"></fa-icon></button>
+                    </td>
+                    <td scope="row" >{{user.name}}</td>
+                    <td>{{user.friends | friendsFilter}}</td>
+                    <td>{{user.age}}</td>
+                    <td>{{user.weight}}</td>
+                    <td>
+                      <a class="cursor-pointer link-align" (click)="navigateToUserDetails(user.userId)">View</a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="toggleArray[userIdex]">
+                      <td colspan="6">
+                          <div class="card">
+                              <h5 class="card-header text-center bg-dark text-white">{{user.name}}</h5>
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-sm-4 text-center">
+                                      <img class="user-image-align" height="200px" src="assets/user_icon.png">
+                                  </div>
+                                  <div class="col-sm-8">
+                                    <table class="table table-bordered">
+                                      <tbody>
+                                        <tr>
+                                          <td>Friends</td>
+                                          <td>{{user.friends | friendsFilter}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Number Of Friends</td>
+                                            <td>{{user.friends.length}}</td>
+                                        </tr>
+                                        <tr>
+                                          <td>Age</td>
+                                          <td>{{user.age}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Classification</td>
+                                            <td>{{user.age | ageClasification}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Weight</td>
+                                            <td>{{user.weight}}</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                      </td>
+                  </tr>
+            </ng-template>
+
+            <!-- <tr *ngFor="let user of (userProfileList | async); let userIdex = index">
               <th scope="row">{{user.name}}</th>
               <td>{{user.friends | friendsFilter}}</td>
               <td>{{user.age}}</td>
@@ -47,7 +108,7 @@
               <td>
                 <a class="cursor-pointer link-align" (click)="navigateToUserDetails(user.userId)">View</a>
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
     </div>
